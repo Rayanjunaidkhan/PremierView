@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="login-container">
+        <h2>Register</h2>
+        <form action="/register" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="Confirmation">Confirmation:</label>
+            <input type="password" id="password" name="confirmation" required>
+            
+            <button class="login-button" type="submit">Register</button>
+            <footer>
+                <p>Already have an account? <a href="/login">Login here</a></p>
+        </form>
+    </div>
+{% endblock %}

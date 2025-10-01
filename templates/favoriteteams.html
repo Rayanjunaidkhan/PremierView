@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="POST" class="enter_team_name">
+            <input type="text" name="team_name" placeholder="Enter team name" required>
+            <button type="submit" class="button">Add Team</button>
+        </form>
+    </div>
+    <div class="container">
+        {% for team in teams %}
+            <div class="team-card">
+                <img src="{{ team.crest }}" alt="{{ team.name }}" width="50">
+                <p>{{ team.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container">
+        <form method="POST" action="{{ url_for('remove_team') }}"">
+            <select name="team_name_remove" required>
+                <option value="" disabled selected>Select team to remove</option>
+                {% for team in teams %}
+                    <option value="{{ team.name }}">{{ team.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="button">Clear Team</button>
+        </form>
+    </div>
+{% endblock %}

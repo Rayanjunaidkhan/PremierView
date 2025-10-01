@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block content %}
+        <H1 class="heading">Upcoming Matches</H1>
+        <div class="scroll-row">
+            {% for match in matches %}
+                <div class="match-card">
+                    <div class="teams">
+                        <div class="team">
+                            <img src="{{ match['homeTeam']['crest'] }}" 
+                                alt="{{ match['homeTeam']['name'] }} Logo" class="team-logo">
+                            <span class="team-name">{{ match['homeTeam']['name'] }}</span>
+                        </div>
+                        <div class="vs">vs</div>
+                        <div class="team">
+                            <img src="{{ match['awayTeam']['crest'] }}" 
+                                alt="{{ match['awayTeam']['name'] }} Logo" class="team-logo">
+                            <span class="team-name">{{ match['awayTeam']['name'] }}</span>
+                        </div>
+                    </div>
+
+                    <div class="match-info">
+                        <span class="match-time">{{ match['utcDate'] }}</span>
+                        <span class="league">{{ match['competition']['name'] }}</span>
+                    </div>
+
+                    <div class="match-info">
+                        <span class="season">{{ match['season']['startDate'] }} - {{ match['season']['endDate'] }}</span>
+                        <span class="status">{{ match['status'] }}</span>
+                        <footer class="footer">
+                            {% if match["status"] in ["LIVE", "IN_PLAY", "PAUSED"] %}
+                                <div class="live-container">
+                                    <div class="live-dot"></div>
+                                    LIVE
+                                </div>
+                            {% elif match["status"] in ["FINISHED", "AWARDED"] %}
+                                <strong>Final Score</strong>
+                            {% else %}
+                                <strong>Upcoming</strong>
+                            {% endif %}
+                        </footer>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        </div>
+            
+        <h1 class="heading">Upcoming Matches of Favorite Teams</h1>
+        {% if favorite_matches %}
+            <div class="scroll-row">
+                {% for match in favorite_matches %}
+                    <div class="match-card">
+                        <div class="teams">
+                            <div class="team">
+                                <img src="{{ match['homeTeam']['crest'] }}" 
+                                    alt="{{ match['homeTeam']['name'] }} Logo" class="team-logo">
+                                <span class="team-name">{{ match['homeTeam']['name'] }}</span>
+                            </div>
+                            <div class="vs">vs</div>
+                            <div class="team">
+                                <img src="{{ match['awayTeam']['crest'] }}" 
+                                    alt="{{ match['awayTeam']['name'] }} Logo" class="team-logo">
+                                <span class="team-name">{{ match['awayTeam']['name'] }}</span>
+                            </div>
+                        </div>
+
+                        <div class="match-info">
+                            <span class="match-time">{{ match['utcDate'] }}</span>
+                            <span class="league">{{ match['competition']['name'] }}</span>
+                        </div>
+                        <div class="match-info">
+                            <span class="season">{{ match['season']['startDate'] }} - {{ match['season']['endDate'] }}</span>
+                            <span class="status">{{ match['status'] }}</span>
+                            <footer class="footer">
+                                {% if match["status"] in ["LIVE", "IN_PLAY", "PAUSED"] %}
+                                    <div class="live-container">
+                                        <div class="live-dot"></div>
+                                        LIVE
+                                    </div>
+                                {% elif match["status"] in ["FINISHED", "AWARDED"] %}
+                                    <strong>Final Score</strong>
+                                {% else %}
+                                    <strong>Upcoming</strong>
+                                {% endif %}
+                            </footer>
+                        </div>
+                        <!-- <div class = "card">
+                            <div class="card-header" onclick="toggleCard(this)">
+                                <span>Match Info</span>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="card-content">
+                                <p>Venue: {{match.venue}}</p>
+                            </div>
+                        </div> -->
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-favorites">No upcoming matches for your favorite teams.</p>
+        {% endif %}
+{% endblock %}
